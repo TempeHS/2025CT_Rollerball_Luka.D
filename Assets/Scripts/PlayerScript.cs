@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
  // Rigidbody of the player.
  private Rigidbody rb; 
-
+ private int count;
  // Movement along X and Y axes.
  private float movementX;
  private float movementY;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
  // Get and store the Rigidbody component attached to the player.
         rb = GetComponent<Rigidbody>();
+        count = 0; 
     }
  
  // This function is called when a move input is detected.
@@ -43,4 +44,12 @@ public class PlayerController : MonoBehaviour
  // Apply force to the Rigidbody to move the player.
         rb.AddForce(movement * speed); 
     }
+ void OnTriggerEnter (Collider other) 
+   {
+       if (other.gameObject.CompareTag("PickUp")) 
+       {
+           other.gameObject.SetActive(false);
+           count = count + 1;
+       }
+   }
 }
